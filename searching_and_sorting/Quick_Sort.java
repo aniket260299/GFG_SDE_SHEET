@@ -11,24 +11,18 @@ public class Quick_Sort {
     }
 
     static int partition(int arr[], int low, int high) {
-        int pivot = arr[low];
         int i = low;
-        int j = high;
-
-        while (i < j) {
-            while (i <= high && arr[i] <= pivot) i++;
-            while (j >= low && arr[j] > pivot) j--;
-            if (i < j) {
-                int temp = arr[i];
-                arr[i] = arr[j];
-                arr[j] = temp;
-            }
+        int pivot = arr[high];
+        for (int j = low; j < high; j++) {
+            if (arr[j] <= pivot) swap(arr, i++, j);
         }
+        swap(arr, i, high);
+        return i;
+    }
 
-        int temp = arr[low];
-        arr[low] = arr[j];
+    static void swap(int[] arr, int i, int j) {
+        int temp = arr[i];
+        arr[i] = arr[j];
         arr[j] = temp;
-
-        return j;
     }
 }
