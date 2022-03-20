@@ -4,34 +4,28 @@ package arrays;
 import java.util.ArrayList;
 
 public class Stock_buy_and_sell {
-    public void stockBuySell(int[] price, int n) {
-        ArrayList<String> ans = new ArrayList<>();
-        int buy, sell;
-        buy = sell = 0;
-
+    ArrayList<ArrayList<Integer>> stockBuySell(int arr[], int n) {
+        ArrayList<ArrayList<Integer>> finalAns = new ArrayList<>();
+        int buy = 0;
         for (int i = 1; i < n; i++) {
-            if (price[i] >= price[i - 1]) sell++;
-            else {
-                if (price[buy] < price[sell])
-                    ans.add("(" + buy + " " + sell + ")");
-                buy = sell = i;
-            }
-
-            if (price[buy] == price[sell]) buy = sell = i;
-        }
-
-        if (price[sell] > price[buy]) {
-            ans.add("(" + buy + " " + sell + ")");
-        }
-
-        if (ans.size() == 0)
-            System.out.print("No Profit");
-        else {
-            for (String str : ans) {
-                System.out.print(str + " ");
+            if (arr[i] < arr[i - 1]) {
+                if (i - 1 != buy) {
+                    ArrayList<Integer> ans = new ArrayList<>();
+                    ans.add(buy);
+                    ans.add(i - 1);
+                    finalAns.add(ans);
+                }
+                buy = i;
             }
         }
 
-        System.out.println();
+        if (arr[buy] < arr[n - 1]) {
+            ArrayList<Integer> ans = new ArrayList<>();
+            ans.add(buy);
+            ans.add(n - 1);
+            finalAns.add(ans);
+        }
+
+        return finalAns;
     }
 }

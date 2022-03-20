@@ -5,37 +5,25 @@ import java.util.HashSet;
 
 public class Swapping_pairs_make_sum_equal {
     long findSwapValues(long A[], int n, long B[], int m) {
-        long sumA, sumB;
-        sumA = sumB = 0;
+        long sumA = 0;
+        HashSet<Long> set = new HashSet<>();
+        for (int i = 0; i < n; i++) {
+            set.add(A[i]);
+            sumA += A[i];
+        }
 
-        for (long num : A) sumA += num;
-        for (long num : B) sumB += num;
+        long sumB = 0;
+        for (int i = 0; i < m; i++) {
+            sumB += B[i];
+        }
 
         if ((sumA - sumB) % 2 != 0) return -1;
 
-        long[] big, small;
-        long bigSum, smallSum;
+        long target = (sumA - sumB) / 2;
 
-        if (sumA > sumB) {
-            big = A;
-            small = B;
-            bigSum = sumA;
-            smallSum = sumB;
-        } else {
-            big = B;
-            small = A;
-            bigSum = sumB;
-            smallSum = sumA;
+        for (int i = 0; i < m; i++) {
+            if (set.contains(target + B[i])) return 1;
         }
-
-        HashSet<Long> set = new HashSet<>();
-        for (long num : big) set.add(num);
-
-        long target = (bigSum - smallSum) / 2;
-
-        for (long num : small)
-            if (set.contains(target + num))
-                return 1;
 
         return -1;
     }

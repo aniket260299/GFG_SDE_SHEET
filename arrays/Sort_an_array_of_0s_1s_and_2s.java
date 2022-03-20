@@ -2,26 +2,23 @@
 package arrays;
 
 public class Sort_an_array_of_0s_1s_and_2s {
-    public static void sort012(int a[], int n) {
-        int[] count = new int[3];
+    public static void sort012(int arr[], int n) {
+        int low, mid, high;
+        low = mid = 0;
+        high = n - 1;
 
-        for (int num : a) {
-            count[num]++;
-        }
+        while (mid <= high) {
+            if (arr[mid] == 0) swap(arr, mid++, low++);
 
-        int i = 0;
-        for (int j = i; j < count[0]; j++) {
-            a[j] = 0;
-        }
+            else if (arr[mid] == 1) mid++;
 
-        i = count[0];
-        for (int j = i; j < count[0] + count[1]; j++) {
-            a[j] = 1;
+            else swap(arr, mid, high--);
         }
+    }
 
-        i += count[1];
-        for (int j = i; j < n; j++) {
-            a[j] = 2;
-        }
+    public static void swap(int[] arr, int i, int j) {
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
     }
 }
